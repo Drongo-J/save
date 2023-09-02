@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/navbar/Navbar';
+import Home from './components/home/Home';
+import About from './components/about/About';
+import Book from './components/book/Book';
+import Footer from './components/footer/Footer';
+import './App.css'
 
-function App() {
+const App = () => {
+  var routerStyle = {display: "flex", flexDirection: "column", justifyContent: "space-between"};
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router style={routerStyle}>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/books/:id" element={<Book />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+      <Footer></Footer>
+    </Router>
   );
-}
+};
 
 export default App;
