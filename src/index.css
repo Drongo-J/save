@@ -22,6 +22,6 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: red;
   height: 100vh;
+  gap: 40px;
 }

@@ -1,0 +1,82 @@
+/* Add this CSS to your stylesheet */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2%;
+  width: 1300px;
+  margin: auto;
+}
+
+@media only screen and (max-width: 1300px) {
+  .card-container {
+    width: 100%;
+  }
+}
+
+/* CSS for consistent card sizes */
+.custom-card {
+  width: 300px;
+  height: 450px; /* Set a fixed height for the cards */
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; /* Ensure content is stacked vertically */
+  justify-content: space-between; /* Push content to the top and bottom */
+  border: 1px solid transparent; /* Add a transparent border */
+  transition: border 0.3s; /* Smooth transition for border change */
+}
+
+.custom-image-container {
+  width: 100%;
+  max-height: 250px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.custom-content {
+  flex-grow: 1; /* Allow content to expand and take available space */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Center text in the card */
+.text-center {
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1rem; /* Set the font size as needed */
+  max-height: 2rem; /* Set the maximum height for the title */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.card-author {
+    font-size: 0.9rem; /* Set the font size as needed */
+    max-height: 1.5rem; /* Set the maximum height for the author's name */
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Display ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+
+/* Thick border on hover */
+.custom-card:hover {
+  border: 3px solid #2185d0; /* Change border to thicker and blue on hover */
+}
+
+.custom-card:first-child {
+  margin-top: 13px !important;
+}
+
+.button-container {
+  text-align: center;
+  padding: 10px 0px 20px 0px;
+}

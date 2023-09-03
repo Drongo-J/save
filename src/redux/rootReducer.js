@@ -1,9 +1,11 @@
 // rootReducer.js
 import { combineReducers } from 'redux';
-import { searchReducer } from './reducers';
+import { booksReducer, commentsReducer, searchReducer } from './reducers';
 
 const rootReducer = combineReducers({
   search: searchReducer,
+  books: booksReducer,
+  comments: commentsReducer,
   // Add more reducers here if you have additional slices of state.
 });
 
