@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, Input } from 'semantic-ui-react';
+import { Menu, Input, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchQuery } from '../../redux/actions';
 
@@ -34,8 +34,11 @@ const Navbar = () => {
       <Menu.Item as={Link} to="/favorite-books" style={itemStyle}>
         Favorite Books
       </Menu.Item>
+      <Menu.Item as={Link} to="/basket" style={itemStyle}>
+        <Icon name="cart" />
+      </Menu.Item>
       <Menu.Menu position="right">
-        <Menu.Item>
+      <Menu.Item>
           <Input
             icon="search"
             placeholder="Search..."

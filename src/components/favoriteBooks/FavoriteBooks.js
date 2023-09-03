@@ -19,8 +19,10 @@ const FavoriteBooks = () => {
     const filteredFavoriteBooks = books.filter((book) =>
       favoriteBookIds.includes(book.Id)
     );
-    setFavoriteBooks(filteredFavoriteBooks);
-  }, [books, favoriteBookIds]);
+    if (filteredFavoriteBooks != null){
+      setFavoriteBooks(filteredFavoriteBooks);
+    }
+  }, []);
 
   // Function to toggle favorite status (remove from favorites)
   const toggleFavorite = (bookId) => {
@@ -44,16 +46,18 @@ const FavoriteBooks = () => {
     );
   }
 
+  console.log(favoriteBooks);
+
   return (
     <div>
-      <h1 className="text-center">Books</h1>
+      <h1 className="text-center">Favorite Books</h1>
       <div className="card-container">
-        {favoriteBooks.map((book) => (
+        {favoriteBooks != null && favoriteBooks.map((book) => (
           <Book
             key={book.Id}
             book={book}
-            isFavorite={true}
-            toggleFavorite={() => toggleFavorite(book.Id)} // Remove book from favorites
+            showIcon={true}
+            setFavoriteBooks={() =>setFavoriteBooks}
           />
         ))}
       </div>

@@ -1,13 +1,14 @@
 // Home.js
-
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../redux/actions";
 import { Button, Card, Icon } from "semantic-ui-react";
-import Cookies from "js-cookie";
 import "./Home.css";
 import Book from "../book/Book";
 import NoResults from "../noResult/NoResults";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -16,43 +17,28 @@ export default function Home() {
   const loading = useSelector((state) => state.books.loading);
   const error = useSelector((state) => state.books.error);
 
+  const [favoriteBooks, setFavoriteBooks] = useState([]); // State to track favorite books
   const [visibleBooks, setVisibleBooks] = useState(10);
   const [loadMoreCount, setLoadMoreCount] = useState(10);
 
-  const [parsedFavorites, setParsedFavorites] = useState([]); // Local state for parsedFavorites
+  // Fetch the list of favorite book IDs from cookies
+  const favoritesCookie = Cookies.get("favorites");
+  const favoriteBookIds = favoritesCookie ? JSON.parse(favoritesCookie) : [];
+  useEffect(() => {
+    // Filter the list of books to display only favorite books
+    const filteredFavoriteBooks = allBooks.filter((book) =>
+      favoriteBookIds.includes(book.Id)
+    );
+    setFavoriteBooks(filteredFavoriteBooks);
+  }, [favoriteBookIds]); // Add favoriteBookIds as a dependency
 
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
 
-  useEffect(() => {
-    // Get favorites from cookies and parse it as JSON
-    const favorites = Cookies.get("favorites");
-    setParsedFavorites(favorites ? JSON.parse(favorites) : []);
-  }, []);
-
   const loadMoreBooks = () => {
     setVisibleBooks((prevVisibleBooks) => prevVisibleBooks + loadMoreCount);
   };
-
-  const toggleFavorite = (bookId) => {
-    const updatedFavorites = [...parsedFavorites];
-
-    if (updatedFavorites.includes(bookId)) {
-      const index = updatedFavorites.indexOf(bookId);
-      updatedFavorites.splice(index, 1);
-    } else {
-      updatedFavorites.push(bookId);
-    }
-
-    // Update favorites in cookies by stringifying it
-    Cookies.set("favorites", JSON.stringify(updatedFavorites), { expires: 7 });
-
-    // Force a re-render to update the heart icon
-    setForceRender(!forceRender);
-  };
-
-  const [forceRender, setForceRender] = useState(false);
 
   // Filter books based on the search query
   const filteredBooks = allBooks.filter(
@@ -87,8 +73,8 @@ export default function Home() {
           <Book
             key={book.Id}
             book={book}
-            isFavorite={parsedFavorites.includes(book.Id)}
-            toggleFavorite={() => toggleFavorite(book.Id)}
+            showIcon={true}
+            setFavoriteBooks={() =>setFavoriteBooks}
           />
         ))}
       </div>
